@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Tilitiedot</string>
+    <string name="createBankAccountTitle">Lisää tilitieto</string>
+
+    <!-- View component strings -->
+    <string name="ownerInput">Nimi</string>
+    <string name="accountNumberInput">Tilinumero</string>
+    <string name="addButton">Lisää</string>
+    <string name="cancelButton">Peruuta</string>
+
+    <!-- Validation messages -->
+    <string name="ownerEmpty">Syötä nimi</string>
+    <string name="accountNumberEmpty">Syötä tilinumero</string>
+</resources>
