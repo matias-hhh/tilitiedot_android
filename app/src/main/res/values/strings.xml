@@ -9,6 +9,7 @@
     <string name="createaccountinfo_form_info">* Pakollinen kenttä</string>
     <string name="add">Lisää</string>
     <string name="cancel">Peruuta</string>
+    <string name="remove">Poista</string>
 
     <!-- Validation messages -->
     <string name="validate_owner_empty">Syötä nimi</string>

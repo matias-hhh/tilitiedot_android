@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,6 +25,7 @@
             android:id="@+id/accountNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/owner"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Account number" />
 
@@ -33,14 +33,27 @@
             android:id="@+id/bicCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/accountNumber"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="BIC code" />
 
-    </LinearLayout>
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/remove"
+            android:id="@+id/button_remove"
+            android:layout_above="@+id/textView"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:background="#c0c0c0"/>
+        android:background="#c0c0c0"
+        android:id="@+id/textView" />
 
-</LinearLayout>
+</layout>
+

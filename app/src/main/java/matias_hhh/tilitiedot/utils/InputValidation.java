@@ -28,6 +28,7 @@ public class InputValidation {
 
         String inputString = input.getText().toString().trim();
 
+        // Name can't be empty
         if (inputString.length() == 0) {
             input.setError(context.getText(R.string.validate_owner_empty));
             return false;
@@ -47,6 +48,7 @@ public class InputValidation {
 
         String inputString = input.getText().toString().trim();
 
+        // IBAN can't be empty
         if (inputString.length() == 0) {
             input.setError(context.getText(R.string.validate_accountnumber_empty));
             return false;
@@ -63,12 +65,14 @@ public class InputValidation {
             return false;
         }
 
+        // Each country has a specific length for IBAN
         String countryCode = inputString.substring(0, 2);
         if (inputString.length() != getIBANLength(countryCode)) {
             input.setError(context.getText(R.string.validate_accountnumber_invalidlength));
             return false;
         }
 
+        // IBAN must pass a modulo 97 check
         if (!checkMod97(inputString)) {
             input.setError(context.getText(R.string.validate_accountnumber_invalidchecksum));
             return false;
@@ -100,6 +104,7 @@ public class InputValidation {
             return false;
         }
 
+        // BIC can be either 8 or 11 characters long
         if (inputString.length() != 8 || inputString.length() != 11) {
             input.setError(context.getText(R.string.validate_biccode_invalidlength));
             return false;
@@ -138,7 +143,7 @@ public class InputValidation {
     }
 
     /**
-     * Get the length of IBAN in a specified country. Values updated 9.3.2016.
+     * Get the length of IBAN in a specified country.
      *
      * WARNING: MAY CONTAIN ERRORS
      *
