@@ -62,7 +62,7 @@ public class AccountInfoItemsAdapter extends
         ownerTextView.setText(accountInfoItem.getOwner());
 
         TextView accountNumberTextView = viewHolder.accountNumberTextView;
-        accountNumberTextView.setText(accountInfoItem.getAccountNumber());
+        accountNumberTextView.setText(accountInfoItem.getFormattedAccountNumber());
 
 
         TextView bicCodeTextView = viewHolder.bicCodeTextView;

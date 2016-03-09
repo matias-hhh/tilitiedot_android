@@ -45,7 +45,8 @@ public class InputValidation {
      */
     public static boolean validateIBAN(Context context, EditText input) {
 
-        String inputString = input.getText().toString().trim();
+        // Delete all formatting whitespaces too
+        String inputString = input.getText().toString().replace(" ", "");
 
         if (inputString.length() == 0) {
             input.setError(context.getText(R.string.validate_accountnumber_empty));
@@ -95,12 +96,12 @@ public class InputValidation {
         }
 
         // First six characters have to be capital letters A-Z.
-        if (!Pattern.matches("^[A-Z]{6}[A-Z_0-9]{2,5}$}", inputString)) {
+        if (!Pattern.matches("^[A-Z]{6}[A-Z_0-9]{2,5}$", inputString)) {
             input.setError(context.getText(R.string.validate_biccode_invalidformat));
             return false;
         }
 
-        if (inputString.length() != 8 || inputString.length() != 11) {
+        if (inputString.length() != 8 && inputString.length() != 11) {
             input.setError(context.getText(R.string.validate_biccode_invalidlength));
             return false;
         }

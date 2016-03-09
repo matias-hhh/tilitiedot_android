@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import java.sql.SQLException;
 
+import matias_hhh.tilitiedot.utils.IBANFormatTextWatcher;
 import matias_hhh.tilitiedot.utils.InputValidation;
 import matias_hhh.tilitiedot.R;
 import matias_hhh.tilitiedot.models.AccountInfoItemsDBManager;
@@ -29,6 +30,10 @@ public class CreateAccountInfoItemActivity extends AppCompatActivity {
         } catch(SQLException err) {
             System.out.println(err);
         }
+
+        // Add text formatting watcher to accountNumber-input
+        EditText accountNumberInput = (EditText) findViewById(R.id.edittext_accountnumber);
+        accountNumberInput.addTextChangedListener(new IBANFormatTextWatcher());
     }
 
     public void createAccountInfoItemOnAddButtonClick(View view) {
@@ -37,20 +42,20 @@ public class CreateAccountInfoItemActivity extends AppCompatActivity {
         EditText bicCodeInput = (EditText) findViewById(R.id.edittext_biccode);
 
         // Validate inputs, set error messages if errors
-        boolean ownerInputHasErrors = InputValidation.validateOwner(this, ownerInput);
-        boolean accountNumberInputHasErrors = InputValidation.validateIBAN(this,
+        boolean ownerInputIsValid = InputValidation.validateOwner(this, ownerInput);
+        boolean accountNumberInputIsValid = InputValidation.validateIBAN(this,
                 accountNumberInput);
-        boolean bicCodeInputHasErrors = InputValidation.validateBIC(this, bicCodeInput);
+        boolean bicCodeInputIsValid = InputValidation.validateBIC(this, bicCodeInput);
 
 
         // If errors, go no further
-        if (!ownerInputHasErrors || !accountNumberInputHasErrors || !bicCodeInputHasErrors) {
+        if (!ownerInputIsValid || !accountNumberInputIsValid || !bicCodeInputIsValid) {
             return;
         }
 
         // If no errors, store the entry into db
         String owner = ownerInput.getText().toString().trim();
-        String accountNumber = accountNumberInput.getText().toString().trim();
+        String accountNumber = accountNumberInput.getText().toString().replace(" ", "");
         String bicCode = bicCodeInput.getText().toString().trim();
 
         boolean bicCodeInputIsEmpty = bicCode.length() == 0;
