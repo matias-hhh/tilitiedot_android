@@ -10,43 +10,60 @@
     tools:context=".activities.CreateAccountInfoItemActivity">
 
     <EditText
-        android:id="@+id/ownerInput"
+        android:id="@+id/edittext_owner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:inputType="textPersonName"
-        android:hint="@string/ownerInput"
+        android:hint="@string/edittext_owner"
         android:ems="10" />
 
     <EditText
-        android:id="@+id/accountNumberInput"
+        android:id="@+id/edittext_accountnumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ownerInput"
+        android:layout_below="@+id/edittext_owner"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="@string/accountNumberInput" />
+        android:hint="@string/edittext_accountnumber" />
 
-    <Button
+    <EditText
+        android:id="@+id/edittext_biccode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edittext_accountnumber"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:hint="@string/edittext_biccode" />
+
+    <TextView
+        android:id="@+id/textview_forminfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/cancelButton"
-        android:id="@+id/cancelButton"
-        android:layout_below="@+id/accountNumberInput"
+        android:layout_below="@id/edittext_biccode"
+        android:text="@string/createaccountinfo_form_info"
+        android:textColor="@color/textDark" />
+
+    <Button
+        android:id="@+id/button_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        android:layout_below="@+id/textview_forminfo"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:onClick="openMainActivityOnCancelButtonClick" />
 
     <Button
-        android:id="@+id/addButton"
+        android:id="@+id/button_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/addButton"
-        android:layout_below="@+id/accountNumberInput"
-        android:layout_toRightOf="@+id/cancelButton"
-        android:layout_toEndOf="@+id/cancelButton"
-        android:onClick="createBankAccountOnAddButtonClick" />
+        android:text="@string/add"
+        android:layout_below="@+id/textview_forminfo"
+        android:layout_toRightOf="@+id/button_cancel"
+        android:layout_toEndOf="@+id/button_cancel"
+        android:onClick="createAccountInfoItemOnAddButtonClick" />
 
 </RelativeLayout>

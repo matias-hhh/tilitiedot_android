@@ -1,14 +1,21 @@
 <resources>
     <string name="app_name">Tilitiedot</string>
-    <string name="createBankAccountTitle">Lisää tilitieto</string>
+    <string name="createaccountinfotiem_title">Lisää tilitieto</string>
 
     <!-- View component strings -->
-    <string name="ownerInput">Nimi</string>
-    <string name="accountNumberInput">Tilinumero</string>
-    <string name="addButton">Lisää</string>
-    <string name="cancelButton">Peruuta</string>
+    <string name="edittext_owner">*Nimi</string>
+    <string name="edittext_accountnumber">*IBAN-tilinumero</string>
+    <string name="edittext_biccode">BIC-koodi</string>
+    <string name="createaccountinfo_form_info">* Pakollinen kenttä</string>
+    <string name="add">Lisää</string>
+    <string name="cancel">Peruuta</string>
 
     <!-- Validation messages -->
-    <string name="ownerEmpty">Syötä nimi</string>
-    <string name="accountNumberEmpty">Syötä tilinumero</string>
+    <string name="validate_owner_empty">Syötä nimi</string>
+    <string name="validate_accountnumber_empty">Syötä IBAN-tilinumero</string>
+    <string name="validate_accountnumber_invalidformat">Syöttämäsi IBAN-numeron formaatti on väärä</string>
+    <string name="validate_accountnumber_invalidlength">Syöttämäsi IBAN-numero on väärän pituinen</string>
+    <string name="validate_accountnumber_invalidchecksum">Syöttämäsi IBAN-numeron tarkistussumma ei täsmää</string>
+    <string name="validate_biccode_invalidformat">Syöttämäsi BIC-koodin formaatti on väärä</string>
+    <string name="validate_biccode_invalidlength">Syöttämäsi BIC-koodi on väärän pituinen</string>
 </resources>

@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Add AccountInfoItem-objects to the RecycleView through the AccountInfoItemsAdapter
         AccountInfoItemsAdapter adapter = new AccountInfoItemsAdapter(accountInfoItems);
-        RecyclerView accountInfoItemsView = (RecyclerView) findViewById(R.id.accountInfoItemList);
+        RecyclerView accountInfoItemsView =
+                (RecyclerView) findViewById(R.id.rv_accountinfoitems);
         accountInfoItemsView.setAdapter(adapter);
         accountInfoItemsView.setLayoutManager(new LinearLayoutManager(this));
     }

@@ -29,6 +29,13 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Account number" />
 
+        <TextView
+            android:id="@+id/bicCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="BIC code" />
+
     </LinearLayout>
 
     <View

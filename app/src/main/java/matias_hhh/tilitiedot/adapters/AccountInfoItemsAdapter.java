@@ -22,12 +22,14 @@ public class AccountInfoItemsAdapter extends
 
         public TextView ownerTextView;
         public TextView accountNumberTextView;
+        public TextView bicCodeTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             ownerTextView = (TextView) itemView.findViewById(R.id.owner);
             accountNumberTextView = (TextView) itemView.findViewById(R.id.accountNumber);
+            bicCodeTextView = (TextView) itemView.findViewById(R.id.bicCode);
         }
     }
 
@@ -61,6 +63,16 @@ public class AccountInfoItemsAdapter extends
 
         TextView accountNumberTextView = viewHolder.accountNumberTextView;
         accountNumberTextView.setText(accountInfoItem.getAccountNumber());
+
+
+        TextView bicCodeTextView = viewHolder.bicCodeTextView;
+
+        // If a BIC-code exists, show it, otherwise hide the view
+        if (accountInfoItem.getBicCode() != null) {
+            bicCodeTextView.setText(accountInfoItem.getBicCode());
+        } else {
+            bicCodeTextView.setVisibility(View.GONE);
+        }
     }
 
     @Override

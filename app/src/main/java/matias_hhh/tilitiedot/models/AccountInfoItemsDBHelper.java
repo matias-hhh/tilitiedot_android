@@ -15,10 +15,11 @@ public class AccountInfoItemsDBHelper extends SQLiteOpenHelper {
     public static final String ID = "_id";
     public static final String OWNER = "owner";
     public static final String ACCOUNT_NUMBER = "account_number";
+    public static final String BIC_CODE = "bic_code";
 
     // Constants for the db
     private static final String DATABASE_NAME = "account_info.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 5;
 
 
     // Table creation sql statement
@@ -26,7 +27,8 @@ public class AccountInfoItemsDBHelper extends SQLiteOpenHelper {
             TABLE_NAME + "(" +
             ID + " integer primary key autoincrement, " +
             OWNER + " text not null, " +
-            ACCOUNT_NUMBER + " text not null);";
+            ACCOUNT_NUMBER + " text not null, " +
+            BIC_CODE + " text);";
 
     public AccountInfoItemsDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

@@ -11,7 +11,8 @@ import java.util.List;
 
 /**
  * This class maintains the database connection and supports adding, deleting and
- * listing AccountInfoItems in SQLite-db utilizing AccountInfoItemsDBHelper
+ * listing AccountInfoItems turning them into rows in account_info_item-table in SQLite-db.
+ * DB is accessed through AccountInfoItemsDBHelper-class
  */
 public class AccountInfoItemsDBManager {
 
@@ -20,7 +21,7 @@ public class AccountInfoItemsDBManager {
 
     // Database fields
     private String[] allColumns = {AccountInfoItemsDBHelper.ID, AccountInfoItemsDBHelper.OWNER,
-            AccountInfoItemsDBHelper.ACCOUNT_NUMBER};
+            AccountInfoItemsDBHelper.ACCOUNT_NUMBER, AccountInfoItemsDBHelper.BIC_CODE};
 
     public AccountInfoItemsDBManager(Context context) {
         dbHelper = new AccountInfoItemsDBHelper(context);
@@ -44,17 +45,19 @@ public class AccountInfoItemsDBManager {
         values.put(AccountInfoItemsDBHelper.OWNER, owner);
         values.put(AccountInfoItemsDBHelper.ACCOUNT_NUMBER, accountNumber);
 
-        // Insert the values into a row in account_info_item-table.
-        long insertId = db.insert(AccountInfoItemsDBHelper.TABLE_NAME, null, values);
+       return insertContentValuesIntoDB(values);
+    }
 
-        // Get the newly created row and make an AccountInfoItem object from it.
-        Cursor cursor = db.query(AccountInfoItemsDBHelper.TABLE_NAME, allColumns,
-                AccountInfoItemsDBHelper.ID + " = " + insertId, null, null, null, null);
-        cursor.moveToFirst();
-        AccountInfoItem newAccountInfoItem = cursorToAccountInfoItem(cursor);
-        cursor.close();
+    public AccountInfoItem createAccountInfoItem(String owner, String accountNumber,
+                                                 String bicCode) {
 
-        return newAccountInfoItem;
+        // Create ContentValues-object from the values
+        ContentValues values = new ContentValues();
+        values.put(AccountInfoItemsDBHelper.OWNER, owner);
+        values.put(AccountInfoItemsDBHelper.ACCOUNT_NUMBER, accountNumber);
+        values.put(AccountInfoItemsDBHelper.BIC_CODE, bicCode);
+
+        return insertContentValuesIntoDB(values);
     }
 
     public void deleteAccountInfoItem(AccountInfoItem accountInfoItem) {
@@ -65,7 +68,7 @@ public class AccountInfoItemsDBManager {
     }
 
     public List<AccountInfoItem> getAllAccountInfoItems() {
-        List<AccountInfoItem> accountInfoItems = new ArrayList<AccountInfoItem>();
+        List<AccountInfoItem> accountInfoItems = new ArrayList<>();
 
         // Get all rows from account_info-table
         Cursor cursor = db.query(AccountInfoItemsDBHelper.TABLE_NAME, allColumns, null, null, null,
@@ -84,8 +87,29 @@ public class AccountInfoItemsDBManager {
     }
 
     // Build an AccountInfoItem-object from the row the cursor
-    // is pointing to
+    // is pointing to from all not-null-columns (bic_code is optional)
     private AccountInfoItem cursorToAccountInfoItem(Cursor cursor) {
-        return new AccountInfoItem(cursor.getLong(0), cursor.getString(1), cursor.getString(2));
+
+        if (cursor.isNull(3)) {
+            return new AccountInfoItem(cursor.getLong(0), cursor.getString(1), cursor.getString(2));
+        } else {
+            return new AccountInfoItem(cursor.getLong(0), cursor.getString(1), cursor.getString(2),
+                    cursor.getString(3));
+        }
+    }
+
+    private AccountInfoItem insertContentValuesIntoDB(ContentValues values) {
+
+        // Insert the values into a row in account_info_item-table.
+        long insertId = db.insert(AccountInfoItemsDBHelper.TABLE_NAME, null, values);
+
+        // Get the newly created row and make an AccountInfoItem object from it.
+        Cursor cursor = db.query(AccountInfoItemsDBHelper.TABLE_NAME, allColumns,
+                AccountInfoItemsDBHelper.ID + " = " + insertId, null, null, null, null);
+        cursor.moveToFirst();
+        AccountInfoItem newAccountInfoItem = cursorToAccountInfoItem(cursor);
+        cursor.close();
+
+        return newAccountInfoItem;
     }
 }
