@@ -63,4 +63,15 @@ public class AccountInfoItem {
     public String toString() {
         return owner;
     }
+
+    public String getFormattedAccountNumber() {
+
+        StringBuilder formatted = new StringBuilder(accountNumber);
+
+        for (int i = 4; i < formatted.length(); i+=5) {
+            formatted.insert(i, " ");
+        }
+
+        return formatted.toString();
+    }
 }

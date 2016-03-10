@@ -16,7 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName|textCapWords"
         android:hint="@string/edittext_owner"
         android:ems="10" />
 
@@ -27,6 +27,7 @@
         android:layout_below="@+id/edittext_owner"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:inputType="textCapCharacters|textNoSuggestions"
         android:hint="@string/edittext_accountnumber" />
 
     <EditText
@@ -36,6 +37,7 @@
         android:layout_below="@+id/edittext_accountnumber"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:inputType="textCapCharacters|textNoSuggestions"
         android:hint="@string/edittext_biccode" />
 
     <TextView
@@ -50,20 +52,22 @@
         android:id="@+id/button_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/cancel"
         android:layout_below="@+id/textview_forminfo"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/button_add"
+        android:layout_toStartOf="@+id/button_add"
         android:onClick="openMainActivityOnCancelButtonClick" />
 
     <Button
         android:id="@+id/button_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/add"
         android:layout_below="@+id/textview_forminfo"
-        android:layout_toRightOf="@+id/button_cancel"
-        android:layout_toEndOf="@+id/button_cancel"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:onClick="createAccountInfoItemOnAddButtonClick" />
 
 </RelativeLayout>
