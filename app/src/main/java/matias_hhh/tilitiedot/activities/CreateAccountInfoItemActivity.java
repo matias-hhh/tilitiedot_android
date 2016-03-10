@@ -36,12 +36,17 @@ public class CreateAccountInfoItemActivity extends AppCompatActivity {
         accountNumberInput.addTextChangedListener(new IBANFormatTextWatcher());
     }
 
+    /**
+     * onClick-listener. When add-button is clicked, the EditText-inputs are first validated
+     * and if no errors, an AccountInfoItem is created from the input and saved to the db. If
+     * errors, show errors to the user.
+     */
     public void createAccountInfoItemOnAddButtonClick(View view) {
         EditText ownerInput = (EditText) findViewById(R.id.edittext_owner);
         EditText accountNumberInput = (EditText) findViewById(R.id.edittext_accountnumber);
         EditText bicCodeInput = (EditText) findViewById(R.id.edittext_biccode);
 
-        // Validate inputs, set error messages if errors
+        // Validate inputs, set error messages to inputs if errors
         boolean ownerInputIsValid = InputValidation.validateOwner(this, ownerInput);
         boolean accountNumberInputIsValid = InputValidation.validateIBAN(this,
                 accountNumberInput);
@@ -58,9 +63,7 @@ public class CreateAccountInfoItemActivity extends AppCompatActivity {
         String accountNumber = accountNumberInput.getText().toString().replace(" ", "");
         String bicCode = bicCodeInput.getText().toString().trim();
 
-        boolean bicCodeInputIsEmpty = bicCode.length() == 0;
-
-        if (bicCodeInputIsEmpty) {
+        if (bicCode.length() == 0) {
             dbManager.createAccountInfoItem(owner, accountNumber);
         } else {
             dbManager.createAccountInfoItem(owner, accountNumber, bicCode);
@@ -69,10 +72,12 @@ public class CreateAccountInfoItemActivity extends AppCompatActivity {
         // Return to MainActivity
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_from_left_to_right, R.anim.slide_from_right_to_left);
     }
 
     public void openMainActivityOnCancelButtonClick(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_from_left_to_right, R.anim.slide_from_right_to_left);
     }
 }

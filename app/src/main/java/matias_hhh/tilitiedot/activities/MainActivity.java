@@ -40,11 +40,17 @@ public class MainActivity extends AppCompatActivity {
         accountInfoItems = dbManager.getAllAccountInfoItems();
 
         // Add AccountInfoItem-objects to the RecycleView through the AccountInfoItemsAdapter
-        AccountInfoItemsAdapter adapter = new AccountInfoItemsAdapter(accountInfoItems);
-        RecyclerView accountInfoItemsView =
+        AccountInfoItemsAdapter adapter = new AccountInfoItemsAdapter(accountInfoItems,
+                new AccountInfoItemsAdapter.ViewHolder.IOnAccountInfoItemClick() {
+                    @Override
+                    public void RemoveAccountInfoItemOnRemoveButtonClick(View view) {
+                        removeAccountInfoItemOnRemoveButtonClick(view);
+                    }
+                });
+        RecyclerView accountInfoItemsRV =
                 (RecyclerView) findViewById(R.id.rv_accountinfoitems);
-        accountInfoItemsView.setAdapter(adapter);
-        accountInfoItemsView.setLayoutManager(new LinearLayoutManager(this));
+        accountInfoItemsRV.setAdapter(adapter);
+        accountInfoItemsRV.setLayoutManager(new LinearLayoutManager(this));
     }
 
     /**
@@ -53,5 +59,10 @@ public class MainActivity extends AppCompatActivity {
     public void openBankAccountActivityOnFABClick(View view) {
         Intent intent = new Intent(this, CreateAccountInfoItemActivity.class);
         startActivity(intent);
+    }
+
+
+    public void removeAccountInfoItemOnRemoveButtonClick(View view) {
+
     }
 }

@@ -106,7 +106,7 @@ public class InputValidation {
         }
 
         // BIC can be either 8 or 11 characters long
-        if (inputString.length() != 8 || inputString.length() != 11) {
+        if (inputString.length() != 8 && inputString.length() != 11) {
             input.setError(context.getText(R.string.validate_biccode_invalidlength));
             return false;
         }

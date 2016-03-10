@@ -1,59 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/bank_account_vertical_padding"
+    android:paddingLeft="@dimen/bank_account_horizontal_padding"
+    android:paddingRight="@dimen/bank_account_horizontal_padding">
 
-    <RelativeLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/owner"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/bank_account_vertical_padding"
-        android:paddingBottom="@dimen/bank_account_vertical_padding"
-        android:paddingLeft="@dimen/bank_account_horizontal_padding"
-        android:paddingRight="@dimen/bank_account_horizontal_padding">
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/textDark"
+        android:text="Owner" />
 
+    <TextView
+        android:id="@+id/accountNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/owner"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Account number" />
 
-        <TextView
-            android:id="@+id/owner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/textDark"
-            android:text="Owner" />
+    <TextView
+        android:id="@+id/bicCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/accountNumber"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="BIC code" />
 
-        <TextView
-            android:id="@+id/accountNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/owner"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Account number" />
-
-        <TextView
-            android:id="@+id/bicCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/accountNumber"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="BIC code" />
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/remove"
-            android:id="@+id/button_remove"
-            android:layout_above="@+id/textView"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-
-    </RelativeLayout>
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/remove"
+        android:id="@+id/button_remove"
+        android:layout_above="@+id/view"
+        android:layout_alignRight="@+id/view"
+        android:layout_alignEnd="@+id/view" />
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
+        android:layout_below="@id/bicCode"
+        android:layout_marginTop="@dimen/bank_account_vertical_padding"
         android:background="#c0c0c0"
-        android:id="@+id/textView" />
+        android:id="@+id/view" />
 
-</layout>
+</RelativeLayout>
+
+
 
