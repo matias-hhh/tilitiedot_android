@@ -37,7 +37,7 @@ public class CreateAccountInfoItemActivity extends AppCompatActivity {
     }
 
     /**
-     * onClick-listener. When add-button is clicked, the EditText-inputs are first validated
+     * onClick-onClickMethods. When add-button is clicked, the EditText-inputs are first validated
      * and if no errors, an AccountInfoItem is created from the input and saved to the db. If
      * errors, show errors to the user.
      */

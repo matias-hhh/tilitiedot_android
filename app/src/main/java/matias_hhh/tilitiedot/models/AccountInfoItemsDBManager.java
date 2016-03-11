@@ -60,8 +60,7 @@ public class AccountInfoItemsDBManager {
         return insertContentValuesIntoDB(values);
     }
 
-    public void deleteAccountInfoItem(AccountInfoItem accountInfoItem) {
-        long id = accountInfoItem.getId();
+    public void deleteAccountInfoItem(long id) {
         System.out.println("Row from account_info_item deleted with id: " + id);
         db.delete(AccountInfoItemsDBHelper.TABLE_NAME, AccountInfoItemsDBHelper.ID + " = " + id,
                 null);

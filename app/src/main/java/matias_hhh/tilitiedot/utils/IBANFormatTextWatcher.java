@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 
 /**
- * TextWatcher which adds a space after every four characters in IBAN-input
+ * TextWatcher that adds a space after every four characters in IBAN-input
  */
 public class IBANFormatTextWatcher implements TextWatcher {
 
@@ -24,20 +24,16 @@ public class IBANFormatTextWatcher implements TextWatcher {
         if (count == 1 && (start + 1) % 5 == 0 && s.charAt(start) == space) {
             spaceDeleted = true;
             spaceDeletedFrom = start;
-            System.out.println("Do not insert space");
         }
     }
 
     @Override
     public void afterTextChanged(Editable s) {
 
-        // When a space is being deleted by user, delete also the item before the space
+        // When a space is being deleted by user, delete also the character before the space
         // since the user is not supposed to worry about the formatting spaces
-
         if (spaceDeleted) {
             spaceDeleted = false;
-            System.out.println("Length: " + Integer.toString(s.length()));
-            System.out.println("From: " + Integer.toString(spaceDeletedFrom));
             s.delete(spaceDeletedFrom - 1, spaceDeletedFrom);
 
         }
@@ -55,11 +51,9 @@ public class IBANFormatTextWatcher implements TextWatcher {
             } else {
 
                 if (i < s.length() && s.charAt(i) == space) {
-                    System.out.println("Replace");
                     s.delete(i, i + 1);
                 }
             }
-
         }
     }
 }
