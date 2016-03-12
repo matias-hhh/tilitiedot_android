@@ -9,7 +9,7 @@ import android.widget.EditText;
 import java.sql.SQLException;
 
 import matias_hhh.tilitiedot.utils.IBANFormatTextWatcher;
-import matias_hhh.tilitiedot.utils.InputValidation;
+import matias_hhh.tilitiedot.utils.InputValidator;
 import matias_hhh.tilitiedot.R;
 import matias_hhh.tilitiedot.models.AccountInfoItemsDBManager;
 
@@ -20,7 +20,7 @@ public class CreateAccountInfoItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle(R.string.createaccountinfotiem_title);
+        setTitle(R.string.createaccountinfoitem_title);
         setContentView(R.layout.activity_create_bank_account);
 
         dbManager = new AccountInfoItemsDBManager(this);
@@ -46,19 +46,13 @@ public class CreateAccountInfoItemActivity extends AppCompatActivity {
         EditText accountNumberInput = (EditText) findViewById(R.id.edittext_accountnumber);
         EditText bicCodeInput = (EditText) findViewById(R.id.edittext_biccode);
 
-        // Validate inputs, set error messages to inputs if errors
-        boolean ownerInputIsValid = InputValidation.validateOwner(this, ownerInput);
-        boolean accountNumberInputIsValid = InputValidation.validateIBAN(this,
-                accountNumberInput);
-        boolean bicCodeInputIsValid = InputValidation.validateBIC(this, bicCodeInput);
-
-
-        // If errors, go no further
-        if (!ownerInputIsValid || !accountNumberInputIsValid || !bicCodeInputIsValid) {
+        // Validate inputs. If not valid, go no further
+        InputValidator validator = new InputValidator(this);
+        if (!validator.allInputsAreValid(ownerInput, accountNumberInput, bicCodeInput)) {
             return;
         }
 
-        // If no errors, store the entry into db
+        // If inputs are valid, store the entry into db
         String owner = ownerInput.getText().toString().trim();
         String accountNumber = accountNumberInput.getText().toString().replace(" ", "");
         String bicCode = bicCodeInput.getText().toString().trim();

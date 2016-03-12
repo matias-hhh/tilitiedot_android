@@ -14,7 +14,7 @@ import matias_hhh.tilitiedot.adapters.AccountInfoItemsAdapter;
 import matias_hhh.tilitiedot.R;
 import matias_hhh.tilitiedot.models.AccountInfoItem;
 import matias_hhh.tilitiedot.models.AccountInfoItemsDBManager;
-import matias_hhh.tilitiedot.utils.IAccountInfoItemOnClickMethods;
+import matias_hhh.tilitiedot.utils.IAccountInfoItemOnClickListeners;
 
 /**
 * Main activity of the app. Shows a list of AccountInfoItems and a button to add more.
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         // Add AccountInfoItem-objects to the RecycleView through the AccountInfoItemsAdapter and
         // pass the implemented OnClick-methods to the adapter.
         adapter = new AccountInfoItemsAdapter(accountInfoItems,
-                new AccountInfoItemOnClickMethods());
+                new AccountInfoItemOnClickListeners());
 
         RecyclerView accountInfoItemsRV = (RecyclerView) findViewById(R.id.rv_accountinfoitems);
         accountInfoItemsRV.setAdapter(adapter);
@@ -61,10 +61,22 @@ public class MainActivity extends AppCompatActivity {
     /**
      *  Implement OnClick-methods for the AccountInfoItems in the RecyclerView
      */
-    class AccountInfoItemOnClickMethods implements IAccountInfoItemOnClickMethods {
+    class AccountInfoItemOnClickListeners implements IAccountInfoItemOnClickListeners {
 
-        public void openEditActivityOnAccountInfoItemClick(View view) {
-            System.out.println("Edit");
+        public void openEditActivityOnAccountInfoItemClick(View view, int position) {
+
+            AccountInfoItem accountInfoItem = adapter.getItem(position);
+            long id = accountInfoItem.getId();
+            String owner = accountInfoItem.getOwner();
+            String accountNumber = accountInfoItem.getFormattedAccountNumber();
+            String bicCode = accountInfoItem.getBicCode();
+
+            Intent intent = new Intent(MainActivity.this, EditAccountInfoItemActivity.class);
+            intent.putExtra("ID", id);
+            intent.putExtra("OWNER", owner);
+            intent.putExtra("ACCOUNT_NUMBER", accountNumber);
+            intent.putExtra("BIC_CODE", bicCode);
+            startActivity(intent);
         }
 
         public void removeAccountInfoItemOnRemoveButtonClick(View view, int position) {

@@ -17,6 +17,8 @@
         </activity>
         <activity android:name=".activities.CreateAccountInfoItemActivity"
             android:windowSoftInputMode="stateVisible"></activity>
+        <activity android:name=".activities.EditAccountInfoItemActivity"
+            android:windowSoftInputMode="stateVisible"></activity>
     </application>
 
 </manifest>

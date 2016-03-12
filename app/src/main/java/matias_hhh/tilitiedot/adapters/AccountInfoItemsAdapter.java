@@ -12,7 +12,7 @@ import java.util.List;
 
 import matias_hhh.tilitiedot.R;
 import matias_hhh.tilitiedot.models.AccountInfoItem;
-import matias_hhh.tilitiedot.utils.IAccountInfoItemOnClickMethods;
+import matias_hhh.tilitiedot.utils.IAccountInfoItemOnClickListeners;
 
 /**
  * Created by Matias on 6.3.2016.
@@ -26,12 +26,12 @@ public class AccountInfoItemsAdapter extends
         public TextView accountNumberTextView;
         public TextView bicCodeTextView;
 
-        public IAccountInfoItemOnClickMethods onClickMethods;
+        public IAccountInfoItemOnClickListeners onClickListeners;
 
-        public ViewHolder(View itemView, IAccountInfoItemOnClickMethods onClickMethods) {
+        public ViewHolder(View itemView, IAccountInfoItemOnClickListeners onClickListeners) {
             super(itemView);
 
-            this.onClickMethods = onClickMethods;
+            this.onClickListeners = onClickListeners;
 
             ownerTextView = (TextView) itemView.findViewById(R.id.owner);
             accountNumberTextView = (TextView) itemView.findViewById(R.id.accountNumber);
@@ -45,22 +45,23 @@ public class AccountInfoItemsAdapter extends
 
         @Override
         public void onClick(View view) {
+            int position = this.getAdapterPosition();
+
             if (view instanceof Button) {
-                int position = this.getAdapterPosition();
-                onClickMethods.removeAccountInfoItemOnRemoveButtonClick(view, position);
+                onClickListeners.removeAccountInfoItemOnRemoveButtonClick(view, position);
             } else {
-                onClickMethods.openEditActivityOnAccountInfoItemClick(view);
+                onClickListeners.openEditActivityOnAccountInfoItemClick(view, position);
             }
         }
     }
 
     private List<AccountInfoItem> accountInfoItems;
-    private IAccountInfoItemOnClickMethods onClickMethods;
+    private IAccountInfoItemOnClickListeners onClickListeners;
 
     public AccountInfoItemsAdapter(List<AccountInfoItem> accountInfoItems,
-                                   IAccountInfoItemOnClickMethods onClickMethods) {
+                                   IAccountInfoItemOnClickListeners onClickListeners) {
         this.accountInfoItems = accountInfoItems;
-        this.onClickMethods = onClickMethods;
+        this.onClickListeners = onClickListeners;
     }
 
     @Override
@@ -72,7 +73,7 @@ public class AccountInfoItemsAdapter extends
         View accountInfoItemView = inflater.inflate(R.layout.item_account_info, parent, false);
 
         // Return a new holder instance
-        return new ViewHolder(accountInfoItemView, onClickMethods);
+        return new ViewHolder(accountInfoItemView, onClickListeners);
     }
 
     @Override
@@ -106,7 +107,11 @@ public class AccountInfoItemsAdapter extends
 
     @Override
     public long getItemId(int position) {
-        return accountInfoItems.get(position).getId();
+        return getItem(position).getId();
+    }
+
+    public AccountInfoItem getItem(int position) {
+        return accountInfoItems.get(position);
     }
 
     public void removeItem(int position) {

@@ -11,19 +11,43 @@ import java.util.regex.Pattern;
 import matias_hhh.tilitiedot.R;
 
 /**
- * Utility class used for validating EditText inputs. Validation functions set errors to the inputs
+ * Utility class used for validating EditText inputs. Validation methods set errors to the inputs
  * and get error messages from res/values/strings.xml
  */
-public class InputValidation {
+public class InputValidator {
+
+    // Context-object to get resource-strings to validation messages
+    private Context context;
+
+    public InputValidator(Context context) {
+        this.context = context;
+    }
+
+    /**
+     * Validate all inputs.
+     *
+     * @param ownerInput: EditText object for the owner input.
+     * @param accountNumberInput: EditText object for the IBAN-number
+     * @param bicCodeInput: EditText object for the BIC-code input
+     * @return true if all inputs are valid
+     */
+    public boolean allInputsAreValid(EditText ownerInput, EditText accountNumberInput,
+                                     EditText bicCodeInput) {
+
+        boolean ownerInputIsValid = validateOwner(ownerInput);
+        boolean accountNumberInputIsValid = validateIBAN(accountNumberInput);
+        boolean bicCodeInputIsValid = validateBIC(bicCodeInput);
+
+        return ownerInputIsValid && accountNumberInputIsValid && bicCodeInputIsValid;
+    }
 
     /**
      * Validation function for owner input.
      *
-     * @param context: Context-object for getting error message strings.
      * @param input: EditText object for the owner input
      * @return true if no errors, false when errors
      */
-    public static boolean validateOwner(Context context, EditText input) {
+    private boolean validateOwner(EditText input) {
 
 
         String inputString = input.getText().toString().trim();
@@ -40,11 +64,10 @@ public class InputValidation {
     /**
      * Validation function for IBAN-number input.
      *
-     * @param context: Context-object for getting error message strings.
      * @param input: EditText object for the IBAN-number
      * @return true if no errors, false when errors
      */
-    public static boolean validateIBAN(Context context, EditText input) {
+    private boolean validateIBAN(EditText input) {
 
         // Delete all formatting whitespaces too
         String inputString = input.getText().toString().replace(" ", "");
@@ -85,11 +108,10 @@ public class InputValidation {
     /**
      * Validation function for BIC-code input.
      *
-     * @param context: Context-object for getting error message strings.
      * @param input: EditText object for the BIC-code input
      * @return true if no errors, false when errors
      */
-    public static boolean validateBIC(Context context, EditText input) {
+    private boolean validateBIC(EditText input) {
 
 
         String inputString = input.getText().toString().trim();
@@ -120,7 +142,7 @@ public class InputValidation {
      * @param input: A string containing an IBAN-number
      * @return true if input is a valid IBAN
      */
-    private static boolean checkMod97(String input) {
+    private boolean checkMod97(String input) {
 
         // Move four first characters to the end of the string
         String firstFour = input.substring(0, 4);
@@ -151,7 +173,7 @@ public class InputValidation {
      * @param countryCode: two character country code eg. "FI", "SE", etc.
      * @return length of the IBAN in the specified country
      */
-    private static int getIBANLength(String countryCode) {
+    private int getIBANLength(String countryCode) {
         Map<String, Integer> IBANLengths = new HashMap<>();
         IBANLengths.put("AL", 28);
         IBANLengths.put("AD", 24);

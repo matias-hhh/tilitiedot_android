@@ -51,13 +51,23 @@ public class AccountInfoItemsDBManager {
     public AccountInfoItem createAccountInfoItem(String owner, String accountNumber,
                                                  String bicCode) {
 
-        // Create ContentValues-object from the values
         ContentValues values = new ContentValues();
         values.put(AccountInfoItemsDBHelper.OWNER, owner);
         values.put(AccountInfoItemsDBHelper.ACCOUNT_NUMBER, accountNumber);
         values.put(AccountInfoItemsDBHelper.BIC_CODE, bicCode);
 
         return insertContentValuesIntoDB(values);
+    }
+
+    public void updateAccountInfoItem(AccountInfoItem accountInfoItem) {
+        ContentValues values = new ContentValues();
+        values.put(AccountInfoItemsDBHelper.OWNER, accountInfoItem.getOwner());
+        values.put(AccountInfoItemsDBHelper.ACCOUNT_NUMBER, accountInfoItem.getAccountNumber());
+        values.put(AccountInfoItemsDBHelper.BIC_CODE, accountInfoItem.getBicCode());
+
+        String id = Long.toString(accountInfoItem.getId());
+        String whereClause = AccountInfoItemsDBHelper.ID + " = " + id;
+        db.update(AccountInfoItemsDBHelper.TABLE_NAME, values, whereClause, null);
     }
 
     public void deleteAccountInfoItem(long id) {
