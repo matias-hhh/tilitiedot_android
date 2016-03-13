@@ -15,12 +15,17 @@ import matias_hhh.tilitiedot.models.AccountInfoItem;
 import matias_hhh.tilitiedot.utils.IAccountInfoItemOnClickListeners;
 
 /**
- * Created by Matias on 6.3.2016.
+ * Adapter for the RecyclerView in the MainActivity, which shows a list of AccountInfoItems
  */
 public class AccountInfoItemsAdapter extends
         RecyclerView.Adapter<AccountInfoItemsAdapter.ViewHolder> {
 
+    /**
+     * The ViewHolder for single AccountInfoItem-view in the RecyclerView. Set up onClick-listeners
+     * also.
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
 
         public TextView ownerTextView;
         public TextView accountNumberTextView;
@@ -28,6 +33,13 @@ public class AccountInfoItemsAdapter extends
 
         public IAccountInfoItemOnClickListeners onClickListeners;
 
+        /**
+         * Constructor
+         *
+         * @param itemView: The view for the AccountInfoItem
+         * @param onClickListeners: An implementation of an interface containing the onClick-
+         *                          listeners for the view
+         */
         public ViewHolder(View itemView, IAccountInfoItemOnClickListeners onClickListeners) {
             super(itemView);
 
@@ -37,12 +49,15 @@ public class AccountInfoItemsAdapter extends
             accountNumberTextView = (TextView) itemView.findViewById(R.id.accountNumber);
             bicCodeTextView = (TextView) itemView.findViewById(R.id.bicCode);
 
+            // Listen on clicks with the whole item
             itemView.setOnClickListener(this);
 
+            // Listen on button clicks also
             Button removeButton = (Button) itemView.findViewById((R.id.button_remove));
             removeButton.setOnClickListener(this);
         }
 
+        // Set the listeners for different clicks.
         @Override
         public void onClick(View view) {
             int position = this.getAdapterPosition();
@@ -58,6 +73,13 @@ public class AccountInfoItemsAdapter extends
     private List<AccountInfoItem> accountInfoItems;
     private IAccountInfoItemOnClickListeners onClickListeners;
 
+    /**
+     *  Constructor
+     *
+     *  @param accountInfoItems: A list of AccountInfoItems to be shown in the RecyclerView.
+     *  @param onClickListeners: An instance implementing an interface containing the onClick-
+     *                           listeners for a single item in the RecyclerView
+     */
     public AccountInfoItemsAdapter(List<AccountInfoItem> accountInfoItems,
                                    IAccountInfoItemOnClickListeners onClickListeners) {
         this.accountInfoItems = accountInfoItems;
@@ -110,10 +132,21 @@ public class AccountInfoItemsAdapter extends
         return getItem(position).getId();
     }
 
+    /**
+     * Get a single item from a given position.
+     *
+     * @param position: Adapter position to query
+     * @return AccountInfoItem specified by the position
+     */
     public AccountInfoItem getItem(int position) {
         return accountInfoItems.get(position);
     }
 
+    /**
+     * Remove an item from the given position and notify the view to update the changes.
+     *
+     * @param position: Adapter position to be removed.
+     */
     public void removeItem(int position) {
         accountInfoItems.remove(position);
         notifyItemRemoved(position);

@@ -61,6 +61,7 @@ public class CreateAccountInfoItemActivity extends AppCompatActivity {
             dbManager.createAccountInfoItem(owner, accountNumber);
         } else {
             dbManager.createAccountInfoItem(owner, accountNumber, bicCode);
+
         }
 
         // Return to MainActivity

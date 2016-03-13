@@ -1,7 +1,6 @@
 package matias_hhh.tilitiedot.utils;
 
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 
 /**
@@ -10,8 +9,8 @@ import android.text.TextWatcher;
 public class IBANFormatTextWatcher implements TextWatcher {
 
     private static final char space = ' ';
-    private boolean spaceDeleted = false;
-    private int spaceDeletedFrom;
+    private boolean deleteSpace = false;
+    private int deleteSpaceFrom;
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -22,8 +21,8 @@ public class IBANFormatTextWatcher implements TextWatcher {
 
         // Flag the occasion when a space is about to be deleted
         if (count == 1 && (start + 1) % 5 == 0 && s.charAt(start) == space) {
-            spaceDeleted = true;
-            spaceDeletedFrom = start;
+            deleteSpace = true;
+            deleteSpaceFrom = start;
         }
     }
 
@@ -32,18 +31,18 @@ public class IBANFormatTextWatcher implements TextWatcher {
 
         // When a space is being deleted by user, delete also the character before the space
         // since the user is not supposed to worry about the formatting spaces
-        if (spaceDeleted) {
-            spaceDeleted = false;
-            s.delete(spaceDeletedFrom - 1, spaceDeletedFrom);
+        if (deleteSpace) {
+            deleteSpace = false;
+            s.delete(deleteSpaceFrom - 1, deleteSpaceFrom);
 
         }
 
-        for (int i = 0; i <= s.length(); i++) {
+        for (int i = 0; i < s.length(); i++) {
 
-            // Insert a space as every fifth character
-            if ((i +  1) % 5 == 0) {
+            // Insert a space at the front of every fifth account number character
+            if ((i + 1) % 5 == 0 && i >= 4) {
 
-                if(i == s.length() || s.charAt(i) != space) {
+                if (s.charAt(i) != space) {
                     s.insert(i, String.valueOf(space));
                 }
 

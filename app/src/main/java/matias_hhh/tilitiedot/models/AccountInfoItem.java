@@ -11,6 +11,7 @@ public class AccountInfoItem {
     private String accountNumber;
     private String bicCode;
 
+    // Two constructors, since the bicCode is optional.
     public AccountInfoItem(long id, String owner, String accountNumber) {
         this.id  = id;
         this.owner = owner;
@@ -58,12 +59,11 @@ public class AccountInfoItem {
         this.bicCode = bicCode;
     }
 
-    // Will be used by the ArrayAdapter in the ListView
-    @Override
-    public String toString() {
-        return owner;
-    }
-
+    /**
+     *  Format the account number to have a space after every four characters
+     *
+     *  @return formatted accountNumber
+     */
     public String getFormattedAccountNumber() {
 
         StringBuilder formatted = new StringBuilder(accountNumber);

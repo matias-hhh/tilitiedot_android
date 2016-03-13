@@ -59,10 +59,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *  Implement OnClick-methods for the AccountInfoItems in the RecyclerView
+     *  Implement the onClick-methods for the AccountInfoItems in the RecyclerView
      */
     class AccountInfoItemOnClickListeners implements IAccountInfoItemOnClickListeners {
 
+        @Override
         public void openEditActivityOnAccountInfoItemClick(View view, int position) {
 
             AccountInfoItem accountInfoItem = adapter.getItem(position);
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+        @Override
         public void removeAccountInfoItemOnRemoveButtonClick(View view, int position) {
 
             // Delete item from db

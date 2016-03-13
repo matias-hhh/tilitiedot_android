@@ -43,6 +43,7 @@ public class EditAccountInfoItemActivity extends AppCompatActivity {
             System.out.println(err);
         }
 
+        // Fetch the input views from the layout
         ownerInput = (EditText) findViewById(R.id.edittext_owner);
         accountNumberInput = (EditText) findViewById(R.id.edittext_accountnumber);
         bicCodeInput = (EditText) findViewById(R.id.edittext_biccode);
@@ -56,7 +57,7 @@ public class EditAccountInfoItemActivity extends AppCompatActivity {
         bicCodeInput.setText(extras.getString("BIC_CODE"));
 
 
-        // Change the add button's text and onClick
+        // Change the add button's text and onClick-method
         Button addButton = (Button) findViewById(R.id.button_add);
         addButton.setText(getText(R.string.edit));
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +71,10 @@ public class EditAccountInfoItemActivity extends AppCompatActivity {
         accountNumberInput.addTextChangedListener(new IBANFormatTextWatcher());
     }
 
+    /**
+     * OnClick-listener. Validates the inputs, makes the given changes to AccountInfoItem
+     * if no errors in inputs and changes back to MainActivity.
+     */
     public void editAccountInfoItemOnEditButtonClick(View view) {
 
         // Validate inputs, if errors, set error messages and go no further
@@ -100,6 +105,9 @@ public class EditAccountInfoItemActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * OnClick-listener. Changes activity back to MainActivity.
+     */
     public void openMainActivityOnCancelButtonClick(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

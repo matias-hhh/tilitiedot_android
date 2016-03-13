@@ -4,8 +4,8 @@
     <string name="editaccountinfoitem_title">Muokkaa tilitietoa</string>
 
     <!-- View component strings -->
-    <string name="edittext_owner">*Nimi</string>
-    <string name="edittext_accountnumber">*IBAN-tilinumero</string>
+    <string name="edittext_owner">* Nimi</string>
+    <string name="edittext_accountnumber">* IBAN-tilinumero</string>
     <string name="edittext_biccode">BIC-koodi</string>
     <string name="createaccountinfo_form_info">* Pakollinen kenttä</string>
     <string name="add">Lisää</string>

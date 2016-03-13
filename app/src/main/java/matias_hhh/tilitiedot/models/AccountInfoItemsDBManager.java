@@ -27,17 +27,27 @@ public class AccountInfoItemsDBManager {
         dbHelper = new AccountInfoItemsDBHelper(context);
     }
 
-    // Try to open a db connection
+    /**
+     * Try to open a db-connection. Throws SQLException if it fails.
+     */
     public void open() throws SQLException {
         db = dbHelper.getWritableDatabase();
     }
 
-    // Close the db connection
+    /**
+     * Close the db-connection.
+     */
     public void close() {
         dbHelper.close();
     }
 
-    // Create a row into the account_info_item-table
+    /**
+    * Create a row into the account_info_item-table, no bicCode.
+     *
+     * @param owner: value for owner-field
+     * @param accountNumber: value for account_number-field
+     * @return AccountInfoItem-object from the created row.
+    */
     public AccountInfoItem createAccountInfoItem(String owner, String accountNumber) {
 
         // Create ContentValues-object from the values
@@ -48,6 +58,14 @@ public class AccountInfoItemsDBManager {
        return insertContentValuesIntoDB(values);
     }
 
+    /**
+     * Create a row into the account_info_item-table with bicCode.
+     *
+     * @param owner: value for owner-field
+     * @param accountNumber: value for account_number-field
+     * @param bicCode: value for bic_code-field
+     * @return AccountInfoItem-object from the created row.
+     */
     public AccountInfoItem createAccountInfoItem(String owner, String accountNumber,
                                                  String bicCode) {
 
@@ -59,6 +77,11 @@ public class AccountInfoItemsDBManager {
         return insertContentValuesIntoDB(values);
     }
 
+    /**
+     * Update a given AccountInfoItem in the db.
+     *
+     * @param accountInfoItem: The item to be updated.
+     */
     public void updateAccountInfoItem(AccountInfoItem accountInfoItem) {
         ContentValues values = new ContentValues();
         values.put(AccountInfoItemsDBHelper.OWNER, accountInfoItem.getOwner());
@@ -70,18 +93,28 @@ public class AccountInfoItemsDBManager {
         db.update(AccountInfoItemsDBHelper.TABLE_NAME, values, whereClause, null);
     }
 
+    /**
+     * Delete a row from account_info_item-table specified by id.
+     */
     public void deleteAccountInfoItem(long id) {
         System.out.println("Row from account_info_item deleted with id: " + id);
         db.delete(AccountInfoItemsDBHelper.TABLE_NAME, AccountInfoItemsDBHelper.ID + " = " + id,
                 null);
     }
 
+    /**
+     * Fetch all rows from the account_info_item-table and make a list of AccountInfoItems from them
+     *
+     * @return a list of AccountInfoItems
+     */
     public List<AccountInfoItem> getAllAccountInfoItems() {
+
         List<AccountInfoItem> accountInfoItems = new ArrayList<>();
 
         // Get all rows from account_info-table
+        String orderByClause = AccountInfoItemsDBHelper.OWNER + " ASC";
         Cursor cursor = db.query(AccountInfoItemsDBHelper.TABLE_NAME, allColumns, null, null, null,
-                null, null);
+                null, orderByClause);
 
         // Iterate through the results converting them to AccountInfoItem-
         // objects and adding them to AccountInfoItems-list
@@ -95,8 +128,13 @@ public class AccountInfoItemsDBManager {
         return accountInfoItems;
     }
 
-    // Build an AccountInfoItem-object from the row the cursor
-    // is pointing to from all not-null-columns (bic_code is optional)
+   /**
+    * Build an AccountInfoItem-object from the row the cursor is pointing to from all
+    * not-null-columns (bic_code is optional)
+    *
+    * @param cursor: A cursor pointing to a row from the account_info_item-table
+    * @return an AccountInfoItem built from the row the cursor is pointing.
+    */
     private AccountInfoItem cursorToAccountInfoItem(Cursor cursor) {
 
         if (cursor.isNull(3)) {
@@ -107,6 +145,12 @@ public class AccountInfoItemsDBManager {
         }
     }
 
+    /**
+     * Helper method to insert the given ContentValues-object in to the account_info_item-table
+     *
+     * @param values: A ContentValues-object containing values for a new account_info_item-row
+     * @return an AccountInfoItem created from the newly added row
+     */
     private AccountInfoItem insertContentValuesIntoDB(ContentValues values) {
 
         // Insert the values into a row in account_info_item-table.
