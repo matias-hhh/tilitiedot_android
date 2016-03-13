@@ -19,9 +19,9 @@ Target SDK 23
 
 Dependencies:
 
-com.android.support:appcompat-v7:23.2.0
-com.android.support:recyclerview-v7:23.2.0
-com.android.support:design:23.1.0
+- com.android.support:appcompat-v7:23.2.0
+- com.android.support:recyclerview-v7:23.2.0
+- com.android.support:design:23.1.0
 
 ## Usage
 
